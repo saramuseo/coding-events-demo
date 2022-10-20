@@ -1,8 +1,6 @@
 package org.launchcode.codingevents.models;
 
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.Objects;
 
 /**
@@ -24,14 +22,28 @@ public class Event {
     @Email(message = "Invalid email. Try again.")
     private String contactEmail;
 
+    @NotNull(message = "Location is required")
+    @NotBlank(message = "Location is required")
+    private String location;
+
+    @AssertTrue(message = "This event must have attendees register.")
+    private boolean registrationRequired=true;
+
+    //@NotNull (message = "Please select a type")
     private EventType type;
 
-    public Event(String name, String description, String contactEmail) {
+    @NotNull(message="At least one attendee required")
+    @Min(value=1, message="At least one attendee required")
+    private Integer attendeesNumber;
+
+    public Event(String name, String description, String contactEmail, EventType type, String location, Integer attendeesNumber) {
         this();
         this.name = name;
         this.description = description;
         this.contactEmail = contactEmail;
+        this.location = location;
         this.type = type;
+        this.attendeesNumber = attendeesNumber;
     }
 
     public Event() {
@@ -63,12 +75,36 @@ public class Event {
         this.contactEmail = contactEmail;
     }
 
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public boolean isRegistrationRequired() {
+        return registrationRequired;
+    }
+
+    public void setRegistrationRequired(boolean registrationRequired) {
+        this.registrationRequired = registrationRequired;
+    }
+
     public EventType getType() {
         return type;
     }
 
     public void setType(EventType type) {
         this.type = type;
+    }
+
+    public Integer getAttendeesNumber() {
+        return attendeesNumber;
+    }
+
+    public void setAttendeesNumber(Integer attendeesNumber) {
+        this.attendeesNumber = attendeesNumber;
     }
 
     public int getId() {
