@@ -42,7 +42,7 @@ public class EventController {
                                          Errors errors, Model model) {
         if(errors.hasErrors()) {
             model.addAttribute("title", "Create Event");
-            return "events/create";
+            return "event/create";
         }
 
        eventRepository.save(newEvent);
