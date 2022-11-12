@@ -1,13 +1,12 @@
 package org.launchcode.codingevents.models;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Chris Bay
@@ -24,6 +23,9 @@ public class Event extends AbstractEntity {
     @Valid
     @NotNull
     private EventDetails eventDetails;
+
+    @ManyToMany
+    private final List<Tag> tags = new ArrayList<>();
 
     @ManyToOne
     @NotNull(message= "Category is required.")
@@ -60,6 +62,14 @@ public class Event extends AbstractEntity {
 
     public void setEventDetails(EventDetails eventDetails) {
         this.eventDetails = eventDetails;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void addTag(Tag tag) {
+        this.tags.add(tag);
     }
 
     @Override
